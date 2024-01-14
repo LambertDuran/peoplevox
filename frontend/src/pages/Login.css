@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.input {
+  margin-bottom: 1em;
+  border: solid 1px;
+  border-radius: 0.5em;
+}
+
+.login_button {
+  width: 100%;
+  cursor: pointer;
+}
+
+.error {
+  margin-top: -1em;
+  margin-bottom: 1em;
+  color: red;
+}
