@@ -1,6 +1,8 @@
-import LRU from 'lru-cache';
+import { LRUCache } from "lru-cache";
 
-export const cache = new LRU({
-  max: 100,                // Maximum number of items in the cache
-  maxAge: 1000 * 60 * 60,  // Maximum age of items in milliseconds (e.g., 1h)
+const cache = new LRUCache({
+  max: 500,
+  ttl: 1000 * 60 * 5,
 });
+
+export default cache;

@@ -1,37 +1,39 @@
-const users = [
-  {
-    id: "1",
-    email: "lambert.drn@gmail.com",
-    password: "test123",
-    name: "Lambert",
-    surname: "Duran",
-  },
-  {
-    id: "2",
-    email: "charley.drn@gmail.com",
-    name: "Charley",
-    password: "test12345",
-    surname: "Duran",
-  },
-];
+import cache from "./cache";
 
 const resolvers = {
   Query: {
     users() {
-      return users;
+      const cachedUsers = cache.values();
+      return cachedUsers;
     },
     user(_, args) {
-      return users.find((u) => u.id === args.id);
+      const cachedUser = cache.get(`${args.id}`);
+      return cachedUser;
     },
   },
   Mutation: {
     addUser(_, args) {
+      // Check the user doen't already exist
+      const alreadyExistingUser = cache.find((u) => {
+        return u.email === args.user.email;
+      });
+      if (alreadyExistingUser) {
+        console.log("A user with this email is already existing");
+        return null;
+      }
+
+      // Create a new id
+      const users = cache.values().next();
+      let id = 1;
+      if (users.value) id = parseInt(users.value.id) + 1;
+
       let user = {
         ...args.user,
-        id: Math.floor(Math.random() * 1000).toString(),
+        id,
       };
 
-      users.push(user);
+      // Record the new user
+      cache.set(`${user.id}`, user);
 
       return user;
     },
