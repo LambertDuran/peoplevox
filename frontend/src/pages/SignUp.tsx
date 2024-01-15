@@ -1,4 +1,18 @@
-import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import { useMutation, gql } from "@apollo/client";
+
+const ADD_USER = gql`
+  mutation AddUser($user: AddUserInput!) {
+    addUser(user: $user) {
+      id
+      email
+      password
+      name
+      surname
+    }
+  }
+`;
 
 interface Values {
   email: string;
@@ -42,8 +56,24 @@ export default function SignUp() {
     else return {};
   };
 
-  const handleSubmit = (values: Values) => {
+  const [addUser, { data, error }] = useMutation(ADD_USER);
+
+  const handleSubmit = async (values: Values) => {
     console.log("submit");
+    try {
+      const res = await addUser({
+        variables: {
+          user: {
+            email: values.email,
+            password: values.password,
+            name: values.name,
+            surname: values.surname,
+          },
+        },
+      });
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
   };
 
   return (
