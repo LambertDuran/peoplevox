@@ -1,13 +1,7 @@
-import { Formik } from "formik";
-import SignUp from "./SignUp";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import "./Login.css";
-
-interface IError {
-  email: string;
-  password: string;
-}
 
 export default function Login() {
   return (
@@ -16,16 +10,14 @@ export default function Login() {
       <p>
         Not registered yet ?
         <Link to={"signup"} className="signup">
+          {" "}
           Sign up
         </Link>
       </p>
       <Formik
         initialValues={{ email: "", password: "" }}
         validate={(values) => {
-          const errors: IError = {
-            email: "",
-            password: "",
-          };
+          const errors = { email: "", password: "" };
           if (!values.email) {
             errors.email = "Required";
           } else if (
@@ -42,41 +34,15 @@ export default function Login() {
           }, 400);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
+        {({ isSubmitting }) => (
+          <Form>
             <div>
               <div>Email address</div>
-              <input
-                className="input"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              <div className="error">
-                {errors.email && touched.email && errors.email}
-              </div>
+              <Field className="input" type="email" name="email" />
+              <ErrorMessage name="email" component="div" className="error" />
               <div>Password</div>
-              <input
-                className="input"
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              <div className="error">
-                {errors.password && touched.password && errors.password}
-              </div>
+              <Field className="input" type="password" name="password" />
+              <ErrorMessage className="error" name="password" component="div" />
             </div>
             <div>
               <button
@@ -87,7 +53,7 @@ export default function Login() {
                 Login
               </button>
             </div>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>
