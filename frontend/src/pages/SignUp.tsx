@@ -1,20 +1,37 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 export default function SignUp() {
+  const initialValues = { email: "", password: "", name: "", surname: "" };
   return (
     <div className="container">
       <h1>Sign up</h1>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={initialValues}
         validate={(values) => {
-          const errors = { email: "", password: "" };
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
+          const errors = initialValues;
+
+          // Email
+          if (!values.email) errors.email = "Required";
+          else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
+          )
             errors.email = "Invalid email address";
-          }
+          else errors.email = "";
+
+          // Password
+          if (!values.password) errors.password = "Required";
+          else if (
+            !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+              values.password
+            )
+          )
+            errors.password = "Invalid Format";
+          else errors.password = "";
+
+          // Name
+
+          // Surname
+
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -26,10 +43,27 @@ export default function SignUp() {
       >
         {({ isSubmitting }) => (
           <Form>
+            <div>Name</div>
+            <Field className="input" name="name" />
+            <ErrorMessage className="error" name="name" component="div" />
+            <div>Surname</div>
+            <Field className="input" name="surname" />
+            <ErrorMessage className="error" name="surname" component="div" />
             <div>Email address</div>
             <Field className="input" type="email" name="email" />
-            <ErrorMessage name="email" component="div" className="error" />
-            <div>Password</div>
+            <ErrorMessage className="error" name="email" component="div" />
+            <div>Password :</div>
+            <div>&nbsp;&nbsp;&nbsp;- At least 8 characters.</div>
+            <div>
+              &nbsp;&nbsp;&nbsp;- Requires at least one uppercase letter.
+            </div>
+            <div>
+              &nbsp;&nbsp;&nbsp;- Requires at least one lowercase letter.
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;- Requires at least one digit</div>
+            <div>
+              &nbsp;&nbsp;&nbsp;- Requires at least one special character
+            </div>
             <Field className="input" type="password" name="password" />
             <ErrorMessage className="error" name="password" component="div" />
             <button
