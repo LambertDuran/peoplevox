@@ -10,6 +10,14 @@ export default function SignUp() {
         validate={(values) => {
           const errors = initialValues;
 
+          // Name
+          if (!values.name) errors.name = "Required";
+          else errors.name = "";
+
+          // Surname
+          if (!values.surname) errors.surname = "Required";
+          else errors.surname = "";
+
           // Email
           if (!values.email) errors.email = "Required";
           else if (
@@ -27,10 +35,6 @@ export default function SignUp() {
           )
             errors.password = "Invalid Format";
           else errors.password = "";
-
-          // Name
-
-          // Surname
 
           return errors;
         }}
