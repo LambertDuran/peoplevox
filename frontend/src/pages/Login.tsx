@@ -1,4 +1,6 @@
 import { Formik } from "formik";
+import SignUp from "./SignUp";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import "./Login.css";
 
@@ -7,12 +9,16 @@ interface IError {
   password: string;
 }
 
-function Login() {
+export default function Login() {
   return (
     <div className="container">
       <img src={logo} alt="peopleVox" />
-      <p>Not registered yet ? Sign up</p>
-      {/* <p>Sign up</p> */}
+      <p>
+        Not registered yet ?
+        <Link to={"signup"} className="signup">
+          Sign up
+        </Link>
+      </p>
       <Formik
         initialValues={{ email: "", password: "" }}
         validate={(values) => {
@@ -44,7 +50,6 @@ function Login() {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
             <div>
@@ -88,5 +93,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;
