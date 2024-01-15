@@ -28,6 +28,18 @@ const resolvers = {
       return users.find( (u) => u.id === args.id );
     }
   },
+  Mutation:{
+    addUser(_, args){
+      let user = {
+        ...args.user,
+        id: Math.floor(Math.random() * 1000).toString()
+      }
+
+      users.push(user);
+
+      return user;
+    }
+  }
 };
 
 // server setup
