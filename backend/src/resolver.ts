@@ -13,6 +13,18 @@ const resolvers = {
   },
   Mutation: {
     addUser(_, args) {
+      // Check there is a surname
+      if (!args.user.surname) {
+        console.log("A user must have a surname");
+        return null;
+      }
+
+      // Check there is a name
+      if (!args.user.name) {
+        console.log("A user must have a name");
+        return null;
+      }
+
       // Check the user doen't already exist
       const alreadyExistingUser = cache.find((u) => {
         return u.email === args.user.email;
