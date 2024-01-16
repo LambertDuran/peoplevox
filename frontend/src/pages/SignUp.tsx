@@ -63,6 +63,7 @@ export default function SignUp() {
 
   const handleSubmit = async (values: Values) => {
     try {
+      // Sending request
       const res = await addUser({
         variables: {
           user: {

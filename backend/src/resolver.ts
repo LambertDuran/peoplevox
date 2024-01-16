@@ -1,6 +1,14 @@
 import cache from "./cache";
 import { GraphQLError } from "graphql";
 
+interface IUser {
+  surname: string;
+  name: string;
+  email: string;
+  password: string;
+  id?: string;
+}
+
 const resolvers = {
   Query: {
     users() {
@@ -13,7 +21,12 @@ const resolvers = {
     },
     auth(_, args) {
       const cachedUser = cache.find((u) => {
-        return u.email === args.email && u.password === args.password;
+        return (
+          "email" in u &&
+          "password" in u &&
+          u.email === args.email &&
+          u.password === args.password
+        );
       });
       return cachedUser;
     },
@@ -40,7 +53,7 @@ const resolvers = {
 
       // Check the user doen't already exist
       const alreadyExistingUser = cache.find((u) => {
-        return u.email === args.user.email;
+        return "email" in u && u.email === args.user.email;
       });
       if (alreadyExistingUser) {
         throw new GraphQLError("Email not available", {
@@ -51,9 +64,9 @@ const resolvers = {
       }
 
       // Create a new id
-      const users = cache.values().next();
+      const lastUser = cache.values().next().value as IUser | null;
       let id = 1;
-      if (users.value) id = parseInt(users.value.id) + 1;
+      if (lastUser && "id" in lastUser) id = parseInt(lastUser.id) + 1;
 
       let user = {
         ...args.user,
