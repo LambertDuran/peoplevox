@@ -10,6 +10,12 @@ const resolvers = {
       const cachedUser = cache.get(`${args.id}`);
       return cachedUser;
     },
+    auth(_, args) {
+      const cachedUser = cache.find((u) => {
+        return u.email === args.email && u.password === args.password;
+      });
+      return cachedUser;
+    },
   },
   Mutation: {
     addUser(_, args) {
