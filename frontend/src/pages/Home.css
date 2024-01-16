@@ -2,3 +2,12 @@
   font-size: larger;
   margin: 0.5em;
 }
+
+.home_button {
+  margin: 3em;
+  cursor: pointer;
+  background-color: #74b3ce;
+  border-radius: 5%;
+  width: 10em;
+  border: solid 1px;
+}

@@ -7,6 +7,11 @@ export default function Home() {
   const navigate = useNavigate();
   const user = auth.getCurrentUser();
 
+  const handleClick = () => {
+    auth.removeCurrentUser();
+    navigate("/");
+  };
+
   // Safeguard : If no user connected, go back to login page
   if (!user) navigate("/login");
 
@@ -18,6 +23,9 @@ export default function Home() {
         {user!.surname} {user!.name}
       </div>
       <div className="home_user">{user!.email}</div>
+      <button className="home_button" onClick={handleClick}>
+        Log out
+      </button>
     </div>
   );
 }

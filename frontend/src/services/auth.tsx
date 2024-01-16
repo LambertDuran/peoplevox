@@ -24,9 +24,16 @@ function getCurrentUser(): IUser | null {
       };
 }
 
+function removeCurrentUser() {
+  localStorage.removeItem("email");
+  localStorage.removeItem("surname");
+  localStorage.removeItem("name");
+}
+
 const auth = {
   setCurrentUser,
   getCurrentUser,
+  removeCurrentUser,
 };
 
 export default auth;
