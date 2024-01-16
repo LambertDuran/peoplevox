@@ -1,4 +1,5 @@
 import auth from "../services/auth";
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,7 @@ interface Values {
 }
 
 export default function SignUp() {
+  const [errorMsg, setErrorMsg] = useState("");
   const initialValues = { email: "", password: "", name: "", surname: "" };
   const navigate = useNavigate();
   const [addUser] = useMutation(ADD_USER);
@@ -73,7 +75,7 @@ export default function SignUp() {
       });
 
       if (!res.data.addUser) {
-        console.error("Network Error");
+        setErrorMsg("Network Error");
         return;
       }
 
@@ -83,14 +85,17 @@ export default function SignUp() {
 
       // Navigate to the Home Page
       navigate("/home");
-    } catch (error) {
-      console.error("Error creating user:", error);
+    } catch (error: any) {
+      if (error.graphQLErrors.length > 0) {
+        setErrorMsg(error.graphQLErrors[0].message);
+      }
     }
   };
 
   return (
     <div className="container">
       <h1>Sign up</h1>
+      {errorMsg && <div className="error">{errorMsg}</div>}
       <Formik
         initialValues={initialValues}
         validate={handleValidate}

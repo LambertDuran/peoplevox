@@ -1,4 +1,5 @@
 import cache from "./cache";
+import { GraphQLError } from "graphql";
 
 const resolvers = {
   Query: {
@@ -21,14 +22,20 @@ const resolvers = {
     addUser(_, args) {
       // Check there is a surname
       if (!args.user.surname) {
-        console.log("A user must have a surname");
-        return null;
+        throw new GraphQLError("Surname must be set", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
       }
 
       // Check there is a name
       if (!args.user.name) {
-        console.log("A user must have a name");
-        return null;
+        throw new GraphQLError("Name must be set", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
       }
 
       // Check the user doen't already exist
@@ -36,8 +43,11 @@ const resolvers = {
         return u.email === args.user.email;
       });
       if (alreadyExistingUser) {
-        console.log("A user with this email is already existing");
-        return null;
+        throw new GraphQLError("Email not available", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
       }
 
       // Create a new id
