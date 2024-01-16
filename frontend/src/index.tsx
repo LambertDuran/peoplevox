@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import "./index.css";
+import PrivateRoute from "./components/PrivateRoute";
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import SignUp from "./pages/SignUp";
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: "home",
-    element: <Home />,
+    element: <PrivateRoute children={<Home />} />,
   },
 ]);
 

@@ -30,10 +30,19 @@ function removeCurrentUser() {
   localStorage.removeItem("name");
 }
 
+function isUserConnected() {
+  const email = localStorage.getItem("email");
+  const surname = localStorage.getItem("surname");
+  const name = localStorage.getItem("name");
+
+  return email !== null && surname !== null && name !== null;
+}
+
 const auth = {
   setCurrentUser,
   getCurrentUser,
   removeCurrentUser,
+  isUserConnected,
 };
 
 export default auth;
