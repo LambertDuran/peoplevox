@@ -1,6 +1,7 @@
+import auth from "../services/auth";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import { useMutation, gql } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 const ADD_USER = gql`
   mutation AddUser($user: AddUserInput!) {
@@ -23,6 +24,8 @@ interface Values {
 
 export default function SignUp() {
   const initialValues = { email: "", password: "", name: "", surname: "" };
+  const navigate = useNavigate();
+  const [addUser] = useMutation(ADD_USER);
 
   const handleValidate = (values: Values) => {
     const errors = { ...initialValues };
@@ -53,13 +56,10 @@ export default function SignUp() {
 
     if (errors.email || errors.password || errors.name || errors.surname)
       return errors;
-    else return {};
+    return {};
   };
 
-  const [addUser, { data, error }] = useMutation(ADD_USER);
-
   const handleSubmit = async (values: Values) => {
-    console.log("submit");
     try {
       const res = await addUser({
         variables: {
@@ -71,6 +71,18 @@ export default function SignUp() {
           },
         },
       });
+
+      if (!res.data.addUser) {
+        console.error("Network Error");
+        return;
+      }
+
+      // Store the current user in the web browser
+      const { email, surname, name } = res.data.addUser;
+      auth.setCurrentUser({ email, surname, name });
+
+      // Navigate to the Home Page
+      navigate("/home");
     } catch (error) {
       console.error("Error creating user:", error);
     }

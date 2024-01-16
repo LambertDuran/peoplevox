@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
+  },
+  {
+    path: "home",
+    element: <Home />,
   },
 ]);
 
