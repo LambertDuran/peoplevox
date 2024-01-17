@@ -49,7 +49,8 @@ D'abord installer les dépendances :
 
    ## Améliorations à prévoir:
 
-   - Développer les GET et DELETE pour le back et ensuite paufiner les tests
+   - Les tests pour le front fonctionnent à peu près en local car je lance le serveur d'applications en parallèle, il faut que je réfléchisse à un moyen de les faire marcher dans le workflow github.
+   - Développer les GET et DELETE pour le back et ensuite paufiner les tests (j'ai conscience de ne pas du tout avoir tout traité pour le front)
    - Créer un composant de loading et l'afficher à la création d'un utilisateur avant de basculer vers la page Home, idem lors du login
    - Utiliser JWT au lieu de stocker directement le nom et le prénom dans le navigateur
    - Encrypter le mot de passe
