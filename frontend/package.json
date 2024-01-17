@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.70",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
@@ -23,8 +22,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "cy:run": "npx cypress run",
+    "testCmd": "start-server-and-test start http://localhost:3000 cy:run",
+    "cy:open": "npx cypress open",
+    "test": "start-server-and-test start http://localhost:3000 cy:open",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^13.6.3",
+    "start-server-and-test": "^2.0.3"
   }
 }

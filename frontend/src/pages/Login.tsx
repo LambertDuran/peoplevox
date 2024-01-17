@@ -54,10 +54,10 @@ export default function Login() {
 
   return (
     <div className="container">
-      <img src={logo} alt="peopleVox" />
+      <img src={logo} alt="peopleVox" data-testid="cypress-logo" />
       <p>
         Not registered yet ?
-        <Link to={"signup"} className="signup">
+        <Link to={"signup"} className="signup" data-testid="cypress-signuplink">
           {" "}
           Sign up
         </Link>
@@ -87,18 +87,33 @@ export default function Login() {
           <Form>
             <div>
               <div>Email address</div>
-              <Field className="input" type="email" name="email" />
+              <Field
+                className="input"
+                type="email"
+                name="email"
+                data-testid="cypress-emailinput"
+              />
               <ErrorMessage name="email" component="div" className="error" />
               <div>Password</div>
-              <Field className="input" type="password" name="password" />
+              <Field
+                className="input"
+                type="password"
+                name="password"
+                data-testid="cypress-passwordinput"
+              />
               <ErrorMessage className="error" name="password" component="div" />
             </div>
-            {error && <div className="error">{error}</div>}
+            {error && (
+              <div className="error" data-testid="cypress-errorLogin">
+                {error}
+              </div>
+            )}
             <div>
               <button
                 className="login_button"
                 type="submit"
                 disabled={isSubmitting}
+                data-testid="cypress-loginbutton"
               >
                 Login
               </button>
