@@ -4,7 +4,6 @@ import { typeDefs } from "./schema";
 import resolvers from "./resolver";
 import cache from "./cache";
 
-// server setup
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -13,6 +12,6 @@ const server = new ApolloServer({
   }),
 });
 
-const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+await startStandaloneServer(server, { listen: { port: 4000 } });
 
 console.log("Server ready at port", 4000);

@@ -22,6 +22,17 @@ mutation AddUser($user: AddUserInput!) {
 }
 `;
 
+const AUTH_USER = `
+query Auth($email: String!, $password: String!) {
+  auth(email: $email, password: $password) {
+    id
+    email
+    name
+    surname
+  }
+}
+`;
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -116,5 +127,26 @@ describe("MUTATIONS / addUser", () => {
     expect((response.body as any).singleResult.errors[0].message).toBe(
       "Email not available"
     );
+  });
+});
+
+describe("QUERY / auth", () => {
+  it("should verify the user is in the database", async () => {
+    const response = await server.executeOperation({
+      query: AUTH_USER,
+      variables: {
+        email: user.email,
+        password: user.password,
+      },
+    });
+
+    expect(response.body.kind).toBe("single");
+    expect((response.body as any).singleResult.errors).toBeUndefined();
+    expect((response.body as any).singleResult.data.auth).toEqual({
+      id: "1",
+      email: "lambert.drn@gmail.com",
+      name: "Lambert",
+      surname: "Duran",
+    });
   });
 });
