@@ -75,11 +75,6 @@ export default function SignUp() {
         },
       });
 
-      if (!res.data.addUser) {
-        setErrorMsg("Network Error");
-        return;
-      }
-
       // Store the current user in the web browser
       const { email, surname, name } = res.data.addUser;
       auth.setCurrentUser({ email, surname, name });
@@ -89,7 +84,7 @@ export default function SignUp() {
     } catch (error: any) {
       if (error.graphQLErrors.length > 0) {
         setErrorMsg(error.graphQLErrors[0].message);
-      }
+      } else setErrorMsg("Network Error");
     }
   };
 
