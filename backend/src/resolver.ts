@@ -51,6 +51,24 @@ const resolvers = {
         });
       }
 
+      // Check there is a email
+      if (!args.user.email) {
+        throw new GraphQLError("Email must be set", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
+
+      // Check there is a Password
+      if (!args.user.password) {
+        throw new GraphQLError("Password must be set", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
+
       // Check the user doen't already exist
       const alreadyExistingUser = cache.find((u) => {
         return "email" in u && u.email === args.user.email;
