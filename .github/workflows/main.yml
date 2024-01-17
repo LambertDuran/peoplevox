@@ -25,12 +25,14 @@ jobs:
           cd backend
           npm test
 
-      - name: Install Fronted dependencies
+      - name: Install Frontend dependencies
         run: |
-          cd frontend
+          cd backend
+          npx nodemon index
+          cd ../frontend
           npm install
 
-      - name: Run Backend tests
+      - name: Run Frontend tests
         run: |
           cd frontend
           npm run testCmd
