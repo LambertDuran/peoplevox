@@ -33,13 +33,14 @@ D'abord installer les dépendances :
 
   ## Lancer les tests 
 
-   D'abord lancer le backend :  
+   D'abord lancer le backend en parallèle :  
    
    ```npx nodemon index```
    
    Puis lancer:  
    
    ```npm test``` 
+   
    Pour les tests j'ai utilisé cypress et start-server-and-test
 
    ## Commentaires
