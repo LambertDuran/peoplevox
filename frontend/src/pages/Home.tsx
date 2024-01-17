@@ -18,8 +18,10 @@ export default function Home() {
   return (
     <div className="container">
       <Confetti width={window.innerWidth} height={window.innerHeight} />
-      <h1 className="home_user">Welcome Home !</h1>
-      <div className="home_user">
+      <h1 className="home_user" data-testid="cypress-homewelcome">
+        Welcome Home !
+      </h1>
+      <div className="home_user" data-testid="cypress-homeuser">
         {user!.surname} {user!.name}
       </div>
       <div className="home_user">{user!.email}</div>

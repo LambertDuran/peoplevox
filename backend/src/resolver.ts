@@ -28,6 +28,7 @@ const resolvers = {
           u.password === args.password
         );
       });
+      console.log("cachedUser", cachedUser);
       return cachedUser;
     },
   },
@@ -93,6 +94,8 @@ const resolvers = {
 
       // Record the new user
       cache.set(`${user.id}`, user);
+
+      console.log("user", user);
 
       return user;
     },

@@ -96,7 +96,11 @@ export default function SignUp() {
   return (
     <div className="container">
       <h1>Sign up</h1>
-      {errorMsg && <div className="error">{errorMsg}</div>}
+      {errorMsg && (
+        <div className="error" data-testid="cypress-signuperror">
+          {errorMsg}
+        </div>
+      )}
       <Formik
         initialValues={initialValues}
         validate={handleValidate}
@@ -104,13 +108,26 @@ export default function SignUp() {
       >
         <Form>
           <div>Name</div>
-          <Field className="input" name="name" />
+          <Field
+            className="input"
+            name="name"
+            data-testid="cypress-signupname"
+          />
           <ErrorMessage className="error" name="name" component="div" />
           <div>Surname</div>
-          <Field className="input" name="surname" />
+          <Field
+            className="input"
+            name="surname"
+            data-testid="cypress-signupsurname"
+          />
           <ErrorMessage className="error" name="surname" component="div" />
           <div>Email address</div>
-          <Field className="input" type="email" name="email" />
+          <Field
+            className="input"
+            type="email"
+            name="email"
+            data-testid="cypress-signupemail"
+          />
           <ErrorMessage className="error" name="email" component="div" />
           <div>Password :</div>
           <div>&nbsp;&nbsp;&nbsp;- At least 8 characters.</div>
@@ -118,9 +135,18 @@ export default function SignUp() {
           <div>&nbsp;&nbsp;&nbsp;- Requires at least one lowercase letter.</div>
           <div>&nbsp;&nbsp;&nbsp;- Requires at least one digit</div>
           <div>&nbsp;&nbsp;&nbsp;- Requires at least one special character</div>
-          <Field className="input" type="password" name="password" />
+          <Field
+            className="input"
+            type="password"
+            name="password"
+            data-testid="cypress-signuppassword"
+          />
           <ErrorMessage className="error" name="password" component="div" />
-          <button className="login_button" type="submit">
+          <button
+            className="login_button"
+            type="submit"
+            data-testid="cypress-signupjoinnow"
+          >
             Join now
           </button>
         </Form>

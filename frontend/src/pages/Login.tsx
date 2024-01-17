@@ -91,7 +91,7 @@ export default function Login() {
                 className="input"
                 type="email"
                 name="email"
-                data-testid="cypress-emailinput"
+                data-testid="cypress-loginemail"
               />
               <ErrorMessage name="email" component="div" className="error" />
               <div>Password</div>
@@ -99,7 +99,7 @@ export default function Login() {
                 className="input"
                 type="password"
                 name="password"
-                data-testid="cypress-passwordinput"
+                data-testid="cypress-loginpassword"
               />
               <ErrorMessage className="error" name="password" component="div" />
             </div>
