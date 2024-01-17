@@ -27,9 +27,7 @@ jobs:
 
       - name: Install Frontend dependencies
         run: |
-          cd backend
-          npx nodemon index
-          cd ../frontend
+          cd frontend
           npm install
 
       - name: Run Frontend tests
